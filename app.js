@@ -101,7 +101,8 @@ document.addEventListener('click', event => {
   if (action === 'reset' && confirm('Reset all prototype data?')) { localStorage.removeItem(STORAGE_KEY); state = JSON.parse(JSON.stringify(seed)); save(); render(); toast('Demo data reset'); }
   const remove = event.target.closest('[data-delete-account]')?.dataset.deleteAccount;
   if (remove && confirm('Remove this account? Existing transactions will remain.')) { state.accounts = state.accounts.filter(item => item.id !== remove); save(); render(); }
-  if (event.target.matches('[data-close-modal]') || event.target.closest('[data-close-modal]')) closeModal();
+  const closeTarget = event.target.closest('[data-close-modal]');
+  if (closeTarget && (closeTarget.classList.contains('modal-backdrop') || closeTarget.tagName === 'BUTTON')) closeModal();
   if (event.target.matches('[data-kind]')) { document.querySelectorAll('[data-kind]').forEach(item => item.classList.toggle('selected', item === event.target)); document.querySelector('[name="kind"]').value = event.target.dataset.kind; }
 });
 document.getElementById('header-add').addEventListener('click', transactionForm);
