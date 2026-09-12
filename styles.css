@@ -13,6 +13,7 @@ button { cursor: pointer; }
 .app-header { height: 66px; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; background: var(--navy); color: #fff; }
 .brand { display: flex; align-items: center; gap: 9px; font-size: 18px; font-weight: 800; letter-spacing: -.04em; }
 .brand-mark { display: grid; place-items: center; width: 29px; height: 29px; border-radius: 9px; background: #5a9dff; }
+.version-badge { padding: 4px 7px; border: 1px solid rgba(255,255,255,.22); border-radius: 99px; color: #c9d5e6; font-size: 10px; font-weight: 700; letter-spacing: .02em; }
 .icon-button { width: 37px; height: 37px; border: 0; border-radius: 11px; background: rgba(255,255,255,.12); color: #fff; font-size: 24px; line-height: 1; }
 .app-main { max-width: 820px; margin: 0 auto; padding: 27px 18px 30px; }
 .page-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 15px; margin-bottom: 22px; }
@@ -35,7 +36,10 @@ h3 { margin: 0; font-size: 15px; }
 .secondary-button, .ghost-button { padding: 10px 13px; font-size: 13px; font-weight: 700; }
 .ghost-button { background: transparent; border-color: transparent; color: var(--blue); padding: 5px 0; }
 .category-list { display: grid; gap: 2px; }
-.category-row { display: grid; grid-template-columns: minmax(0, 1.4fr) .8fr .8fr .8fr; gap: 8px; align-items: center; padding: 13px 0; border-top: 1px solid var(--line); }
+.category-list { overflow-x: auto; }
+.category-row { display: grid; grid-template-columns: minmax(190px, 1.4fr) .8fr .8fr .8fr .8fr; gap: 8px; align-items: center; min-width: 620px; padding: 13px 0; border-top: 1px solid var(--line); }
+.category-header { min-width: 620px; padding: 0 0 10px; border-top: 0; color: #98a2af; font-size: 10px; font-weight: 750; text-transform: uppercase; letter-spacing: .07em; }
+.category-header > div:not(:first-child) { text-align: right; }
 .category-name { display: flex; align-items: center; gap: 9px; min-width: 0; font-size: 14px; font-weight: 740; }
 .category-name span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .category-dot { display: grid; flex: 0 0 29px; place-items: center; width: 29px; height: 29px; border-radius: 9px; color: #fff; font-size: 14px; }
@@ -89,4 +93,4 @@ textarea { min-height: 78px; resize: vertical; }
 .form-actions button { flex: 1; }
 .toast { position: fixed; right: 16px; bottom: 84px; z-index: 15; padding: 11px 13px; border-radius: 9px; background: var(--navy); color: #fff; box-shadow: var(--shadow); font-size: 13px; }
 @media (min-width: 650px) { .modal-backdrop { align-items: center; justify-items: center; padding: 20px; } .modal { width: min(540px, 100%); border-radius: 18px; } .app-header { padding-right: max(20px, calc((100vw - 820px) / 2)); padding-left: max(20px, calc((100vw - 820px) / 2)); } }
-@media (max-width: 470px) { .summary-grid { gap: 7px; } .summary-card { padding: 13px 10px; } .summary-value { font-size: 17px; } .summary-note { font-size: 9px; } .category-row { grid-template-columns: minmax(0, 1.2fr) .85fr .85fr; } .category-row > :nth-child(3) { display: none; } .category-row .column-label:nth-child(3) { display: none; } .amount small { display: none; } }
+@media (max-width: 470px) { .summary-grid { gap: 7px; } .summary-card { padding: 13px 10px; } .summary-value { font-size: 17px; } .summary-note { font-size: 9px; } .amount small { display: none; } }

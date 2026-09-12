@@ -61,7 +61,8 @@ function renderCategoryRows(showHeader = false) {
     const plan = Number(item.plans[selectedMonth] || 0); const spent = txForMonth().filter(x => x.categoryId === item.id && x.kind === 'expense').reduce((s, x) => s + Number(x.amount), 0); const left = plan - spent; const percent = plan ? Math.min(100, Math.round((spent / plan) * 100)) : 0;
     return `<div class="category-row"><div class="category-name"><span class="category-dot dot-${item.color}">${item.name[0]}</span><span>${esc(item.name)}</span></div><div class="amount"><span class="column-label">Savings</span>${money.format(item.savings)}</div><div class="amount"><span class="column-label">Plan</span><input class="plan-input" data-category-id="${item.id}" type="number" min="0" step="0.01" value="${plan}" aria-label="Plan for ${esc(item.name)}" /></div><div class="amount"><span class="column-label">Spent</span><strong>${money.format(spent)}</strong><div class="progress"><span class="track"><span class="fill ${percent > 90 ? 'high' : ''}" style="width:${percent}%"></span></span><small>${percent}%</small></div></div><div class="amount remaining"><span class="column-label">Remaining</span><strong>${money.format(left)}</strong></div></div>`;
   }).join('');
-  return rows || '<div class="empty">No categories yet. Add your first category to start planning.</div>';
+  if (!rows) return '<div class="empty">No categories yet. Add your first category to start planning.</div>';
+  return `<div class="category-row category-header"><div>Category</div><div>Savings</div><div>Planned</div><div>Spent</div><div>Remaining</div></div>${rows}`;
 }
 function renderPlan() {
   app.innerHTML = `${heading('Monthly plan', 'Assign a job to every dollar for this month.', `${monthPicker()} <button class="primary-button" data-action="add-category">＋ Category</button>`)}<section class="panel"><div class="panel-heading"><div><h2>${monthLabel(selectedMonth)}</h2><div class="helper">Edit Plan amounts directly. Savings shows prior-month carryover.</div></div></div><div class="category-list">${renderCategoryRows(true)}</div></section>`;
@@ -102,7 +103,7 @@ document.addEventListener('click', event => {
   const remove = event.target.closest('[data-delete-account]')?.dataset.deleteAccount;
   if (remove && confirm('Remove this account? Existing transactions will remain.')) { state.accounts = state.accounts.filter(item => item.id !== remove); save(); render(); }
   const closeTarget = event.target.closest('[data-close-modal]');
-  if (closeTarget && (closeTarget.classList.contains('modal-backdrop') || closeTarget.tagName === 'BUTTON')) closeModal();
+  if (closeTarget && ((closeTarget.classList.contains('modal-backdrop') && event.target === closeTarget) || closeTarget.tagName === 'BUTTON')) closeModal();
   if (event.target.matches('[data-kind]')) { document.querySelectorAll('[data-kind]').forEach(item => item.classList.toggle('selected', item === event.target)); document.querySelector('[name="kind"]').value = event.target.dataset.kind; }
 });
 document.getElementById('header-add').addEventListener('click', transactionForm);
